@@ -1,4 +1,16 @@
 #!/bin/bash
+read -p "Enter customers name " cust
+sudo useradd $cust 
+if [ $? -ne 0 ];
+then
+echo " You already have an account with us so ur eligible for 20% discount"
+exit 1
+else
+echo " new account created "
+read -p "enter addr" addr
+read -p "enter phone num " phone
+fi
+
 # function main
 main() 
 {
