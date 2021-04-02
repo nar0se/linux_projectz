@@ -1,2 +1,0 @@
-tomatoes 2.54
-chicken 6.45
