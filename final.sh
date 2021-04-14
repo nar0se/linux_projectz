@@ -1,5 +1,5 @@
 #!/bin/bash
-#read -p "Enter customers name " cust
+read -p "Enter customers name " cust[3]
 #sudo useradd $cust 
 #if [ $? -ne 0 ];
 #then
@@ -7,8 +7,8 @@
 #exit 1
 #else
 #echo " new account created "
-#read -p "enter addr" addr
-#read -p "enter phone num " phone
+read -p "enter addr" addr[10]
+read -p "enter phone num " phone
 #fi
 
 # function main
@@ -54,7 +54,7 @@ fi
 }
 
 main
-#declare -a array=( "Apple 1.25" "tomatoes 2.54" "spinach 4.56" "carrot 0.98" )
+#declare -a price=( "1.25" "2.54" "4.56" "0.98" )
 
 #options for produce
 truncate -s 0 new.txt
@@ -62,11 +62,15 @@ until [ "$option" -gt 3 ]
 do
 while [ "$option" -eq 0 ]
 do
-declare -a array=( "Apple 1.25" "tomatoes 2.54" "spinach 4.56" "carrot 0.98" )
-read -p " press 0:Apple 1:tomatoes 2:spinach 3:carrot " var 
+declare -a price=( "1.25" "2.54" "4.56" "0.98" )
+declare -a array=( "Apple ==> 1.25" "tomatoes ==> 2.54" "spinach ==> 4.56" "carrot ==> 0.98" )
+printf "press:   0 -----> Apple - $ 1.25\n\t 1 -----> Tomatoes - $ 2.54\n\t 2 ----> spinach - $ 4.56 \n\t 3 -----> carrot - $ 0.98 \n" 
+read var 
+read -p "enter qunty" qty
+echo " $(awk 'PRINT {$qty * $price[$var]}')"
 for i in "${array[*]}"
 do
- echo "${array[$var]} added to cart"
+echo "$qty lb of ${array[$var]} added to cart "
 echo "${array[$var]}" >> new.txt
 break
 done
@@ -78,8 +82,9 @@ done
 
 while [ "$option" -eq 1 ]
 do
-declare -a diary=( "milk 3.25" "cheese 5.67" "eggs 6.87" "yogurt 7.34" )
-read -p "press 0:milk 1:cheese  2:eggs 3:yogurt " key
+declare -a diary=( "milk ===> 3.25" "cheese ===> 5.67" "eggs ===> 6.87" "yogurt ===> 7.34" )
+printf "press: 0 -----> milk\n\t1 -----> cheese\n\t2 -----> eggs\n\t3 -----> yogurt\n " 
+read key
 for i in "${diary[*]}"
 do
 echo "${diary[$key]} added to cart "
