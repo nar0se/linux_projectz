@@ -1,0 +1,1 @@
+awk -v q=$qty { print ,added to cart, *q } new.txt
