@@ -1,2 +1,0 @@
-chicken 6.45 0
-Eggs 6.87 4
