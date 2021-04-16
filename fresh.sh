@@ -51,15 +51,11 @@ fi
 
 shop()
 {
-
-awk -v q=$qty '{print q,"lb",$1,"added to cart", $2*$3 }' new.txt 
-break
 printf "Press 1 to continue shopping or 2 to checkout\n" 
-read out 
+read out
 if [ $out -eq 1 ]; then
-#awk -v q=$qty '{print q,"lb",$1,"added to cart", $2*$3 }' new.txt 
 main
-else
+elif [ $out -eq 2 ]; then
 echo "Checking out"
 printf "Please wait while your receipt is being printed\n"
 sleep 4
@@ -81,9 +77,11 @@ echo "-------------------------------"
 printf "Thank you for your patronage \n"
 printf "Your items will be delivered within 24 hours \n"
 exit
+else 
+echo "invalid input,try again"
+#shop()
 fi
 }
-
 main
 #declare -a price=( "1.25" "2.54" "4.56" "0.98" )
 
@@ -96,7 +94,7 @@ do
 declare -a array=( "Apples 1.25" "Tomatoes 2.54" "Spinach 4.56" "Carrots 0.98" "Ginger 2.22" "Oranges 2.49" )
 printf "Please select a choice.\n0:Apples -\t$ 1.25\n1:Tomatoes -\t$ 2.54\n2:Spinach -\t$ 4.56\n3:Carrots -\t$ 0.98\n4:Ginger - \t$ 2.22\n5:Oranges - \t$ 2.49\n"
 read var
-if [ $var -gt 6 ];
+if [ $var -gt 5 ];
 then
 echo "Invalid choice."
 break
@@ -109,7 +107,7 @@ do
 echo "${array[$var]}" "$qty" >> new.txt
 break
 done
-#awk -v q=$qty '{print q,"lb",$1,"added to cart", $2*$3 }' new.txt 
+awk -v q=$qty 'END{print q,"lb",$1,"added to cart","$", $2*$3 }' new.txt 
 break
 done
  
@@ -121,7 +119,7 @@ do
 declare -a diary=( "Milk 3.25" "Cheese 5.67" "Eggs 6.87" "Yogurt 7.34" "Butter 0.99" "SourCream 3.89" )
 printf "Please select a choice.\n0:Milk - \t$ 3.25\n1:Cheese - \t$ 5.67\n2:Egg - \t$ 6.87\n3:Yogurt - \t$ 7.34\n4:Butter -\t$ 0.99\n5:SourCream -\t$ 3.89\n"
 read key
-if [ $key -gt 6 ];
+if [ $key -gt 5 ];
 then
 echo "Invalid choice."
 break
@@ -131,20 +129,20 @@ read oqty
 for i in "${diary[*]}"
 do
 #echo "${diary[$key]} Added to cart "
-echo "${diary[$key]}" "$qty" >> new.txt
+echo "${diary[$key]}" "$oqty" >> new.txt
 break
 done
-#awk -v q=$qty '{print q,"Pack",$1,"added to cart", $2*$3 }' new.txt
+awk -v q=$oqty 'END{print q,"Pack",$1,"added to cart","$", $2*$3 }' new.txt
 break
 done
 
  #options for meat
 while [ "$option" -eq 2 ]
 do
-declare -a meat=( "chicken 6.45" "salmon 12.56" "shrimp 8.67" "scallops 11.33" "ground beef 4.55" "pork 3.98" )
+declare -a meat=( "chicken 6.45" "salmon 12.56" "shrimp 8.67" "scallops 11.33" "groundbeef 4.55" "pork 3.98" )
 printf "Please select a choice.\n0:Chicken - \t$ 6.45\n1:Salmon - \t$ 12.56\n2:shrimp - \t$ 8.67\n3:Scallops - \t$ 11.33\n4:GroundBeef - \t$ 4.55\n5:Pork - \t$ 3.98\n"
 read rt
-if [ $rt -gt 6 ];
+if [ $rt -gt 5 ];
 then
 echo "Invalid choice."
 break
@@ -154,10 +152,10 @@ read sqty
 for i in "${meat[*]}"
 do
 #echo "${meat[$rt]} added to cart "
-echo "${meat[$rt]}" "$qty" >> new.txt
+echo "${meat[$rt]}" "$sqty" >> new.txt
 break
 done
-#awk -v q=$qty '{print q,"lb", $1,"added to cart", $2*$3 }' new.txt
+awk -v q=$sqty 'END{print q,"lb", $1,"added to cart","$", $2*$3 }' new.txt
 break
 done
 shop
